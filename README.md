@@ -49,10 +49,8 @@ com.example
 > 📌 **Place your ER Diagram image here** (e.g., `er-diagram.png`)
 
 Example:
-```
-<img width="625" height="878" alt="image" src="https://github.com/user-attachments/assets/84c1bf98-636f-40a4-a684-85ce3169b83e" />
 
-```
+<img width="625" height="878" alt="image" src="https://github.com/user-attachments/assets/27e740e1-424d-4703-a821-35e0cea9dfcf" />
 
 ---
 
