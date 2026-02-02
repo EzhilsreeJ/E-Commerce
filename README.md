@@ -189,6 +189,150 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 
 ---
 
+# ⚠️ Exception Handling
+
+This project uses **custom exceptions** and a **Global Exception Handler** to provide meaningful error responses in JSON format.
+
+All exceptions are handled centrally using `@RestControllerAdvice`.
+
+---
+
+## 📁 Exception Structure
+
+```
+com.example.demo
+ ├── Exception
+ │     └── GlobalExceptionHandler.java
+ └── Handler
+       ├── ResourceNotFoundException.java
+       ├── BadRequestException.java
+       ├── DuplicateResourceException.java
+       └── ErrorResponse.java
+```
+
+---
+
+## 🧩 Custom Exceptions
+
+### 1. ResourceNotFoundException  
+Thrown when a requested resource is not found in the database.
+
+```java
+throw new ResourceNotFoundException("Product not found with id: " + id);
+```
+
+Used for:
+- User not found  
+- Product not found  
+- Category not found  
+- Order not found  
+- Cart item not found  
+- Review not found  
+- Order tracking not found  
+
+---
+
+### 2. BadRequestException  
+Thrown when the request data is invalid or violates business rules.
+
+```java
+throw new BadRequestException("Quantity must be greater than 0");
+```
+
+Used for:
+- Quantity ≤ 0  
+- Invalid order operation  
+- Invalid rating value  
+- Invalid status  
+- Wrong input data  
+
+---
+
+### 3. DuplicateResourceException  
+Thrown when duplicate data is inserted that violates uniqueness.
+
+```java
+throw new DuplicateResourceException("Email already exists");
+```
+
+Used for:
+- Duplicate email  
+- Duplicate SKU  
+- Duplicate cart item  
+- Duplicate review  
+
+---
+
+## 📦 ErrorResponse Model
+
+All exceptions return a standard JSON structure:
+
+```json
+{
+  "timestamp": "2026-02-02T12:30:20",
+  "status": 404,
+  "error": "NOT FOUND",
+  "message": "Product not found with id: 10",
+  "path": "/api/products/10"
+}
+```
+
+Fields:
+- `timestamp` – Time of error  
+- `status` – HTTP status code  
+- `error` – Error type  
+- `message` – Detailed message  
+- `path` – API endpoint  
+
+---
+
+## 🌐 GlobalExceptionHandler
+
+The `GlobalExceptionHandler` handles all exceptions using `@RestControllerAdvice`.
+
+Handled exceptions:
+
+| Exception Type | HTTP Status | Meaning |
+|----------------|-------------|---------|
+| ResourceNotFoundException | 404 | Resource not found |
+| BadRequestException | 400 | Invalid request |
+| DuplicateResourceException | 409 | Duplicate data |
+| MethodArgumentNotValidException | 400 | Validation error |
+| DataIntegrityViolationException | 400 | Database constraint error |
+| Exception (generic) | 500 | Server error |
+
+---
+
+## 🧠 Where Exceptions Are Thrown
+
+Exceptions are thrown in the **Service layer**.
+
+Example (CartService):
+
+```java
+if (cart.getQuantity() <= 0) {
+    throw new BadRequestException("Quantity must be greater than 0");
+}
+```
+
+Example (ProductService):
+
+```java
+productRepository.findById(id)
+    .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+```
+
+---
+
+## ✅ Benefits
+
+- Clean API responses  
+- Centralized error handling  
+- Easy debugging  
+- Better client-side handling  
+- Production-ready design  
+---
+
 ## ▶️ How to Run the Project
 
 1. Clone the repository:
