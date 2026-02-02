@@ -33,18 +33,23 @@ public class ReviewService {
     }
 
     // UPDATE
-    public Review updateReview(Review review) {
-        Review existingReview = reviewRepository.findById(review.getId())
-                .orElseThrow(() -> new RuntimeException("Review not found with id: " + review.getId()));
+    public Review addOrUpdateReview(Review review) {
+        Long userId = review.getUsers().getId();
+        Long productId = review.getProduct().getId();
 
-        existingReview.setRating(review.getRating());
-        existingReview.setComment(review.getComment());
-        existingReview.setUsers(review.getUsers());
-        existingReview.setProduct(review.getProduct());
-        existingReview.setOrders(review.getOrders());
+        Review existing = reviewRepository
+                .findByUsers_IdAndProduct_Id(userId, productId)
+                .orElse(null);
 
-        return reviewRepository.save(existingReview);
+        if (existing != null) {
+            existing.setRating(review.getRating());
+            existing.setComment(review.getComment());
+            return reviewRepository.save(existing);
+        }
+
+        return reviewRepository.save(review);
     }
+
 
     // DELETE
     public void deleteReview(Long id) {
