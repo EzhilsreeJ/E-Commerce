@@ -37,7 +37,7 @@ public class CartService {
         Cart existingCart = cartRepository.findById(cart.getId())
                 .orElseThrow(() -> new RuntimeException("Cart item not found with id: " + cart.getId()));
 
-        existingCart.setUser(cart.getUser());
+        existingCart.setUsers(cart.getUsers());
         existingCart.setProduct(cart.getProduct());
         existingCart.setQuantity(cart.getQuantity());
         existingCart.setPriceAtAdded(cart.getPriceAtAdded());

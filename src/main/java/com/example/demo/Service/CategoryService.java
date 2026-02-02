@@ -37,9 +37,9 @@ public class CategoryService {
         Category existingCategory = categoryRepository.findById(category.getId())
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + category.getId()));
 
-        existingCategory.setName(category.getName());
+        existingCategory.setCategoryName(category.getCategoryName());
         existingCategory.setDescription(category.getDescription());
-        existingCategory.setIsActive(category.getIsActive());
+        existingCategory.setActive(category.isActive());
         existingCategory.setParent(category.getParent());
 
         return categoryRepository.save(existingCategory);

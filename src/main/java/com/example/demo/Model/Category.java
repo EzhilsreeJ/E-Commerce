@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String categoryName;
     private boolean isActive;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
