@@ -32,10 +32,12 @@ public class OrderTrackingService {
     }
 
     // UPDATE
-    public OrderTracking update(OrderTracking orderTracking) {
-        OrderTracking existing = orderTrackingRepository.findById(orderTracking.getId())
+    public OrderTracking update(Long id, OrderTracking orderTracking) {
+
+        OrderTracking existing = orderTrackingRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("OrderTracking not found with id: " + orderTracking.getId()));
+                        new RuntimeException("OrderTracking not found with id: " + id)
+                );
 
         existing.setOrderGroupId(orderTracking.getOrderGroupId());
         existing.setStatus(orderTracking.getStatus());
@@ -47,6 +49,7 @@ public class OrderTrackingService {
 
         return orderTrackingRepository.save(existing);
     }
+
 
     // DELETE
     public void delete(Long id) {

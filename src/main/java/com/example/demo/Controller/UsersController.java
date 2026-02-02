@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Model.Users;
 import com.example.demo.Service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,12 +26,13 @@ public class UsersController {
         return usersService.getUserById(id);
     }
     @DeleteMapping("/{id}")
-    public String deleteUserById(@PathVariable Long id){
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id){
         usersService.deleteUserById(id);
-        return "User Deleted Successfully!";
+        return ResponseEntity.ok("User Deleted Successfully!");
     }
-    @PutMapping("/id")
-    public Users updateUser(@RequestBody Users users){
+    @PutMapping("/{id}")
+    public Users updateUser(@PathVariable Long id, @RequestBody Users users){
+        users.setId(id);
         return usersService.updateUser(users);
     }
 

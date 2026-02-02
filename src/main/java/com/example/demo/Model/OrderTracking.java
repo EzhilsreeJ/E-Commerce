@@ -1,17 +1,18 @@
 package com.example.demo.Model;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
+
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @Entity
+@Setter
+@Getter
 @Table(name = "order_tracking")
 public class OrderTracking {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String orderGroupId;
     private String status;
