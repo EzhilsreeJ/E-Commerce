@@ -3,8 +3,11 @@ import jakarta.persistence.*;
 
 
 import lombok.*;
+<<<<<<< HEAD
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+=======
+>>>>>>> 1957c4b6ff9e5403bcb8d45ec6c576c1065d3e5b
 
 import java.time.LocalDateTime;
 
@@ -14,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "order_tracking")
 public class OrderTracking {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String orderGroupId;
     private String status;

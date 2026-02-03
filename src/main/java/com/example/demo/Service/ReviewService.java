@@ -37,9 +37,17 @@ public class ReviewService {
         Long userId = review.getUsers().getId();
         Long productId = review.getProduct().getId();
 
+<<<<<<< HEAD
         Review existing = reviewRepository
                 .findByUsers_IdAndProduct_Id(userId, productId)
                 .orElse(null);
+=======
+        existingReview.setRating(review.getRating());
+        existingReview.setComment(review.getComment());
+        existingReview.setUsers(review.getUsers());
+        existingReview.setProduct(review.getProduct());
+        existingReview.setOrder(review.getOrder());
+>>>>>>> 1957c4b6ff9e5403bcb8d45ec6c576c1065d3e5b
 
         if (existing != null) {
             existing.setRating(review.getRating());

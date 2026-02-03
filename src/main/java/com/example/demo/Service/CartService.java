@@ -1,6 +1,10 @@
 package com.example.demo.Service;
 
+<<<<<<< HEAD
 import com.example.demo.Handler.BadRequestException;
+=======
+import com.example.demo.Exception.BadRequestException;
+>>>>>>> 1957c4b6ff9e5403bcb8d45ec6c576c1065d3e5b
 import com.example.demo.Model.Cart;
 import com.example.demo.Model.Product;
 import com.example.demo.Repository.CartRepository;

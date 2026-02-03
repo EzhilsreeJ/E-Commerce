@@ -1,7 +1,13 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.Cart;
+import com.example.demo.Model.Product;
+import com.example.demo.Model.Users;
+import com.example.demo.Repository.CartRepository;
+import com.example.demo.Repository.ProductRepository;
+import com.example.demo.Repository.UsersRepository;
 import com.example.demo.Service.CartService;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,16 +17,25 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
+    private final UsersRepository usersRepository;
+    private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
 
-    // Constructor injection (recommended)
-    public CartController(CartService cartService) {
+    // Constructor injection
+    public CartController(CartService cartService,
+                          UsersRepository usersRepository,
+                          ProductRepository productRepository,
+                          CartRepository cartRepository) {
         this.cartService = cartService;
+        this.usersRepository = usersRepository;
+        this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
     }
 
     // CREATE
     @PostMapping("/add")
     public Cart addCartItem(@RequestBody Cart cart) {
-        return cartService.addToCart(cart);
+        return cartRepository.save(cart);
     }
 
     // READ ALL
