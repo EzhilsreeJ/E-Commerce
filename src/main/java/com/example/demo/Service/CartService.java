@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Exception.BadRequestException;
 import com.example.demo.Model.Cart;
 import com.example.demo.Model.Product;
 import com.example.demo.Repository.CartRepository;
