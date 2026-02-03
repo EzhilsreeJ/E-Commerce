@@ -18,7 +18,7 @@ public class ReviewController {
     }
 
     // CREATE
-    @PostMapping
+    @PostMapping("/add")
     public Review addReview(@RequestBody Review review) {
         return reviewService.addReview(review);
     }

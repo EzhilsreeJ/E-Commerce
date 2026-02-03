@@ -38,8 +38,8 @@ public class OrderTrackingController {
     @PutMapping("/{id}")
     public OrderTracking updateTracking(@PathVariable Long id,
                                         @RequestBody OrderTracking orderTracking) {
-        orderTracking.setId(id);
-        return orderTrackingService.update(orderTracking);
+        //orderTracking.setId(id);
+        return orderTrackingService.update(id,orderTracking);
     }
 
     // DELETE

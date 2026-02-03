@@ -41,7 +41,7 @@ public class ReviewService {
         existingReview.setComment(review.getComment());
         existingReview.setUsers(review.getUsers());
         existingReview.setProduct(review.getProduct());
-        existingReview.setOrders(review.getOrders());
+        existingReview.setOrder(review.getOrder());
 
         return reviewRepository.save(existingReview);
     }

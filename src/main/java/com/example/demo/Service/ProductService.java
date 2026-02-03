@@ -1,7 +1,10 @@
 package com.example.demo.Service;
 
 import com.example.demo.Model.Product;
+import com.example.demo.Repository.CartRepository;
+import com.example.demo.Repository.OrdersRepository;
 import com.example.demo.Repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +13,14 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final OrdersRepository ordersRepository;
 
     // Constructor Injection
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CartRepository cartRepository, OrdersRepository ordersRepository) {
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
+        this.ordersRepository = ordersRepository;
     }
 
     // CREATE
@@ -33,24 +40,29 @@ public class ProductService {
     }
 
     // UPDATE
-    public Product updateProduct(Product product) {
-        Product existingProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + product.getId()));
+    public Product updateProduct(Long id, Product product) {
 
-        existingProduct.setName(product.getName());
-        existingProduct.setDescription(product.getDescription());
-        existingProduct.setPrice(product.getPrice());
-        existingProduct.setStockQuantity(product.getStockQuantity());
-        existingProduct.setBrand(product.getBrand());
-        existingProduct.setSku(product.getSku());
-        existingProduct.setCategory(product.getCategory());
-        existingProduct.setIsActive(product.getIsActive());
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        return productRepository.save(existingProduct);
+        existing.setName(product.getName());
+        existing.setBrand(product.getBrand());
+        existing.setDescription(product.getDescription());
+        existing.setPrice(product.getPrice());
+        existing.setStockQuantity(product.getStockQuantity());
+        existing.setSku(product.getSku());
+        existing.setIsActive(product.getIsActive());
+        existing.setCategory(product.getCategory());
+
+        return productRepository.save(existing);
     }
 
+
     // DELETE
+    @Transactional
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        ordersRepository.deleteByUsers_Id(id);
+        cartRepository.deleteByProduct_Id(id); // FIRST delete cart rows
+        productRepository.deleteById(id);      // THEN delete product
     }
 }
