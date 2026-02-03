@@ -1,44 +1,15 @@
 
 # 🛒 E-Commerce Management System (Spring Boot)
 
-This is a backend E-Commerce Management System built using Spring Boot, Spring Data JPA, and MySQL.
-It provides REST APIs to manage users, categories, products, cart, orders, reviews, and order tracking.
-
----
-
-## 🚀 Features
-- User Management  
-- Category Management (with parent-child categories)  
-- Product Management  
-- Cart Management  
-- Order Management  
-- Review Management  
-- Order Tracking  
-- CRUD Operations  
-- RESTful APIs  
-- MySQL Database Integration  
-
----
-
-## 🏗️ Tech Stack
-Java, Spring Boot, Spring Data JPA (Hibernate), MySQL, Maven, Lombok, Git & GitHub
-
----
-
-## ⚙️ Database
-Database Name: `ecommerncedb`
-
----
-
-# 🌐 API Documentation
+## 📡 API Documentation (CRUD with Request & Response)
 
 Base URL: `http://localhost:8080/api`
 
 ---
 
-## 👤 Users API
+## 👤 USERS
 
-### ➕ Add User
+### ➕ Create User
 **POST** `/users/add`  
 Request:
 ```json
@@ -57,7 +28,7 @@ Response:
 }
 ```
 
-### 📥 Get All Users
+### 📄 Get All Users
 **GET** `/users`
 Response:
 ```json
@@ -70,66 +41,94 @@ Response:
 ]
 ```
 
+### ✏️ Update User
+**PUT** `/users/1`
+Request:
+```json
+{
+  "name": "John Updated",
+  "email": "john@gmail.com"
+}
+```
+Response:
+```json
+{
+  "id": 1,
+  "name": "John Updated",
+  "email": "john@gmail.com"
+}
+```
+
+### ❌ Delete User
+**DELETE** `/users/1`
+Response:
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
 ---
 
-## 🗂️ Categories API
+## 🗂️ CATEGORY
 
-### ➕ Add Category
+### ➕ Create Category
 **POST** `/categories/add`
 ```json
 {
   "name": "Electronics",
-  "description": "Devices",
-  "parentId": null
+  "description": "Electronic Items"
 }
 ```
 
-### 📥 Get Categories
+### 📄 Get Categories
 **GET** `/categories`
+
+### ✏️ Update Category
+**PUT** `/categories/1`
 ```json
-[
-  {
-    "id": 1,
-    "name": "Electronics",
-    "description": "Devices"
-  }
-]
+{
+  "name": "Mobiles",
+  "description": "Mobile Devices"
+}
 ```
+
+### ❌ Delete Category
+**DELETE** `/categories/1`
 
 ---
 
-## 📦 Products API
+## 📦 PRODUCT
 
-### ➕ Add Product
+### ➕ Create Product
 **POST** `/products/add`
 ```json
 {
-  "name": "Laptop",
-  "description": "Gaming Laptop",
-  "price": 60000,
+  "name": "iPhone",
+  "price": 80000,
   "stockQuantity": 10,
-  "brand": "HP",
-  "sku": "HP123",
   "categoryId": 1
 }
 ```
 
-### 📥 Get Products
+### 📄 Get Products
 **GET** `/products`
+
+### ✏️ Update Product
+**PUT** `/products/1`
 ```json
-[
-  {
-    "id": 1,
-    "name": "Laptop",
-    "price": 60000,
-    "stockQuantity": 10
-  }
-]
+{
+  "name": "iPhone 15",
+  "price": 90000
+}
 ```
+
+### ❌ Delete Product
+**DELETE** `/products/1`
 
 ---
 
-## 🛒 Cart API
+## 🛒 CART
 
 ### ➕ Add to Cart
 **POST** `/cart/add`
@@ -141,18 +140,23 @@ Response:
 }
 ```
 
-Response:
+### 📄 Get Cart
+**GET** `/cart`
+
+### ✏️ Update Cart
+**PUT** `/cart/1`
 ```json
 {
-  "id": 1,
-  "quantity": 2,
-  "priceAtAdded": 120000
+  "quantity": 3
 }
 ```
 
+### ❌ Delete Cart Item
+**DELETE** `/cart/1`
+
 ---
 
-## 🧾 Orders API
+## 📦 ORDERS
 
 ### ➕ Place Order
 **POST** `/orders/addorder`
@@ -164,17 +168,23 @@ Response:
 }
 ```
 
-Response:
+### 📄 Get Orders
+**GET** `/orders`
+
+### ✏️ Update Order
+**PUT** `/orders/1`
 ```json
 {
-  "orderGroupId": "ORD123",
-  "status": "PLACED"
+  "orderStatus": "DELIVERED"
 }
 ```
 
+### ❌ Delete Order
+**DELETE** `/orders/1`
+
 ---
 
-## ⭐ Reviews API
+## ⭐ REVIEW
 
 ### ➕ Add Review
 **POST** `/reviews`
@@ -188,43 +198,55 @@ Response:
 }
 ```
 
+### 📄 Get Reviews
+**GET** `/reviews`
+
+### ✏️ Update Review
+**PUT** `/reviews/1`
+```json
+{
+  "rating": 4,
+  "comment": "Good product"
+}
+```
+
+### ❌ Delete Review
+**DELETE** `/reviews/1`
+
 ---
 
-## 🚚 Order Tracking API
+## 🚚 ORDER TRACKING
 
 ### ➕ Add Tracking
 **POST** `/order-tracking`
 ```json
 {
   "orderGroupId": "ORD123",
-  "status": "SHIPPED",
+  "status": "Shipped",
   "location": "Chennai"
 }
 ```
 
----
+### 📄 Get Tracking
+**GET** `/order-tracking`
 
-## ⚠️ Error Response Format
+### ✏️ Update Tracking
+**PUT** `/order-tracking/1`
 ```json
 {
-  "timestamp": "2026-02-02T12:30:20",
-  "status": 404,
-  "error": "NOT FOUND",
-  "message": "Product not found",
-  "path": "/api/products/10"
+  "status": "Delivered"
 }
 ```
 
----
-
-## ▶️ Run Project
-```bash
-git clone https://github.com/EzhilsreeJ/E-Commerce.git
-mvn spring-boot:run
-```
+### ❌ Delete Tracking
+**DELETE** `/order-tracking/1`
 
 ---
 
-## 👨‍💻 Author
-Ezhilsree J  
-GitHub: https://github.com/EzhilsreeJ
+## 🧪 Testing Tools
+- Postman
+- Thunder Client
+
+---
+
+Author: **Ezhilsree J**
