@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 @Getter
@@ -12,13 +13,16 @@ import java.time.LocalDateTime;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
+    @Column(name = "name", nullable = false)
     private String name;
-    private boolean isActive;
     private String description;
+    private boolean isActive;
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Handler.ResourceNotFoundException;
 import com.example.demo.Model.Category;
 import com.example.demo.Repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,18 @@ public class CategoryService {
 
     // UPDATE
     public Category updateCategory(Category category) {
+
         Category existingCategory = categoryRepository.findById(category.getId())
-                .orElseThrow(() -> new RuntimeException("Category not found with id: " + category.getId()));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Category not found with id: " + category.getId()));
 
         existingCategory.setName(category.getName());
-        existingCategory.setDescription(category.getDescription());
         existingCategory.setActive(category.isActive());
         existingCategory.setParent(category.getParent());
 
         return categoryRepository.save(existingCategory);
     }
+
 
     // DELETE
     public void deleteCategory(Long id) {
