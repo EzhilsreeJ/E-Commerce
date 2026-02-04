@@ -23,8 +23,8 @@ public class Product {
     private String brand;
     @Column(unique = true)
     private String sku;
-    private double ratingAvg;
-    private double ratingCount;
+    private Double ratingAvg;
+    private Double ratingCount;
     private Boolean isActive;
     @ManyToOne
     @JoinColumn(name = "category_id")

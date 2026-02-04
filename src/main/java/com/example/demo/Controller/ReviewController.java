@@ -37,9 +37,9 @@ public class ReviewController {
 
     // UPDATE
     @PutMapping("/{id}")
-    public Review updateReview(@PathVariable Long id, @RequestBody Review review) {
+    public Review addOrUpdateReview(@PathVariable Long id, @RequestBody Review review) {
         review.setId(id);
-        return reviewService.updateReview(review);
+        return reviewService.addOrUpdateReview(review);
     }
 
     // DELETE

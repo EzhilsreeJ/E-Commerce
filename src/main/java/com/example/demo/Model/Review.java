@@ -3,6 +3,7 @@ package com.example.demo.Model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,12 @@ public class Review {
     private Integer rating;
 
     private String comment;
+<<<<<<< HEAD
+    @UpdateTimestamp
+    @Column(name = "updated_at", updatable = false)
+=======
 
+>>>>>>> 1957c4b6ff9e5403bcb8d45ec6c576c1065d3e5b
     private LocalDateTime updatedAt;
 
     @PrePersist
